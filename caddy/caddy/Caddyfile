@@ -1,6 +1,6 @@
 # Docs: https://caddyserver.com/docs/caddyfile
-laradock.test {
-    root * /var/www/public
+any.site.net {
+    root * /var/www/any_dir/public
     php_fastcgi php-fpm:9000
     file_server
 
