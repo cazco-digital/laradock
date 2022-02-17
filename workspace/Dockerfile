@@ -1710,6 +1710,19 @@ RUN if [ ${INSTALL_TRADER} = true ]; then \
 
 #
 #--------------------------------------------------------------------------
+# Optional Supervisord Configuration
+#--------------------------------------------------------------------------
+#
+# Modify the ./supervisor.conf file to match your App's requirements.
+# Make sure you rebuild your container with every change.
+#
+
+COPY supervisord.conf /etc/supervisord.conf
+
+ENTRYPOINT ["supervisord", "-n", "-c",  "/etc/supervisord.conf"]
+
+#
+#--------------------------------------------------------------------------
 # Final Touch
 #--------------------------------------------------------------------------
 #
