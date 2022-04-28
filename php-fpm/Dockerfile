@@ -770,7 +770,7 @@ USER root
 ARG INSTALL_IMAGE_OPTIMIZERS=false
 
 RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
-    apt-get install -yqq jpegoptim optipng pngquant gifsicle \
+    apt-get install -yqq jpegoptim optipng pngquant gifsicle inkscape \
 ;fi
 
 ###########################################################################
@@ -1213,6 +1213,27 @@ RUN if [ ${DOWNGRADE_OPENSSL_TLS_AND_SECLEVEL} = true ]; then \
     sed -i 's,^\(MinProtocol[ ]*=\).*,\1'TLSv1.2',g' /etc/ssl/openssl.cnf \
     && \
     sed -i 's,^\(CipherString[ ]*=\).*,\1'DEFAULT@SECLEVEL=1',g' /etc/ssl/openssl.cnf\
+;fi
+
+###########################################################################
+# zmq
+###########################################################################
+
+USER root
+
+ARG INSTALL_ZMQ=false
+
+RUN if [ ${INSTALL_ZMQ} = true ]; then \
+    apt-get install --yes git libzmq3-dev \
+    && git clone https://github.com/zeromq/php-zmq.git \
+    && cd php-zmq \
+    && phpize \
+    && ./configure \
+    && make \
+    && make install \
+    && cd .. \
+    && rm -fr php-zmq \
+    && echo "extension=zmq.so" > /usr/local/etc/php/conf.d/zmq.ini \
 ;fi
 
 ###########################################################################
