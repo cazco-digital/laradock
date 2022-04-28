@@ -770,7 +770,7 @@ USER root
 ARG INSTALL_IMAGE_OPTIMIZERS=false
 
 RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
-    apt-get install -yqq jpegoptim optipng pngquant gifsicle \
+    apt-get install -yqq jpegoptim optipng pngquant gifsicle inkscape \
 ;fi
 
 ###########################################################################
